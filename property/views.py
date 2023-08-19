@@ -1,10 +1,11 @@
 from django.shortcuts import redirect, render
-from django.views.generic import ListView , DetailView
+from django.views.generic import ListView , DetailView , CreateView
 from .models import Property
 from django.views.generic.edit import FormMixin
 from .forms import PropertyBookForm
 from . filter import PropertyFilter
 from django_filters.views import FilterView
+from property.models import PropertyBook
 
 
 class PropertyList(FilterView):
@@ -34,4 +35,6 @@ class PropertyDetail(FormMixin , DetailView):
             myform.save()
 
             return redirect('/')
-    #book
+
+class AddListing(CreateView):
+    pass

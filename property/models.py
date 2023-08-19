@@ -7,6 +7,7 @@ from django.utils.text import slugify
 
 # Create your models here.
 class Property(models.Model):
+    owner = models.ForeignKey(User, related_name='property_owner', on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
     image = models.ImageField(upload_to='property/')
     price = models.IntegerField(default=0)
@@ -26,6 +27,29 @@ class Property(models.Model):
     
     def get_absolute_url(self):
         return reverse("property:property_detail", kwargs={"slug": self.slug})
+    
+    def get_avg_rating(self):
+        all_reviews = self.review_property.all()
+        all_rating = 0
+        if len(all_reviews)>0:
+            for review in all_reviews:
+                all_rating += review.rate
+            return round(all_rating/len(all_reviews),2)
+        else :
+            return '-'
+        
+    def check_avilability(self):
+        all_reservations = self.book_property.all()
+        now = timezone.now().date()
+        for reservation in all_reservations:
+            if now > reservation.date_to :
+                return 'available'
+            elif now > reservation.date_from and now < reservation.date_to:
+                reserved_to = reservation.date_to
+                return f'in progress{reserved_to}'
+        else :
+            return 'available'
+        
     
     
 
@@ -74,8 +98,13 @@ class PropertyBook(models.Model):
     property = models.ForeignKey(Property, related_name="book_property", on_delete=models.CASCADE)
     date_from = models.DateField( default=timezone.now)
     date_to = models.DateField( default=timezone.now)
-    guest = models.IntegerField( max_length=2,choices=count)
-    children = models.IntegerField( max_length=2,choices=count)
+    guest = models.IntegerField( choices=count)
+    children = models.IntegerField( choices=count)
 
     def __str__(self):
         return str(self.property)
+    
+    def in_progress(self):
+        now = timezone.now().date()
+        return now > self.date_from and now < self.date_to
+    in_progress.boolean = True
