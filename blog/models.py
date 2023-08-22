@@ -4,18 +4,19 @@ from django.urls import reverse
 from django.utils import timezone
 from taggit.managers import TaggableManager
 from django.utils.text import slugify 
+from django.utils.translation import gettext_lazy as _
 
 
 
 class Post(models.Model):
-    auther = models.ForeignKey(User, related_name="post_auther", on_delete=models.CASCADE)
-    title = models.CharField(max_length=100)
-    tags = TaggableManager()
-    image = models.ImageField(upload_to='post/')
-    created_at = models.DateTimeField( default=timezone.now)
-    description = models.TextField(max_length=100000)
-    category = models.ForeignKey('Category',related_name='post_category',on_delete=models.CASCADE)
-    slug = models.SlugField(null=True,blank=True)
+    auther = models.ForeignKey(User, related_name="post_auther",verbose_name=_('auther'), on_delete=models.CASCADE)
+    title = models.CharField(max_length=100,verbose_name=_('title'))
+    tags = TaggableManager(_("tags"))
+    image = models.ImageField(_("image"),upload_to='post/')
+    created_at = models.DateTimeField( _("created_at"),default=timezone.now)
+    description = models.TextField(_("description"),max_length=100000)
+    category = models.ForeignKey('Category',related_name='post_category',verbose_name=_('category'),on_delete=models.CASCADE)
+    slug = models.SlugField(_("url"),null=True,blank=True)
 
     def save(self,*args, **kwargs):
         if not self.slug:
