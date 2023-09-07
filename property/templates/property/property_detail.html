@@ -50,14 +50,14 @@
 						</p>
 						<p>{{object.description|safe}}</p>
 					</div>
-                    {% if object.check_avilability == 'available' %}
-					 <h4> The Room Is Available Today</h4>
+					{% if object.check_avilability == 'available' %}
+					<h4> The Room Is Available Today</h4>
 					{% else %}
 					<h4>The Room Is Being Booked , And The Reservation {{object.check_avilability}}</h4>
 					{% endif %}
 					<div class="col-md-12 hotel-single ftco-animate mb-5 mt-4">
 						<h4 class="mb-5">Check Availability &amp; Booking</h4>
-						<form  method="post" class="form">
+						<form method="post" class="form">
 							{% csrf_token %}
 							{% bootstrap_form form %}
 							{% buttons %}
@@ -120,12 +120,12 @@
 							{% for property in related  %}
 							<div class="col-md-4">
 								<div class="destination">
-									<a href="hotel-single.html" class="img img-2"
+									<a href="{{property.get_absolute_url}}" class="img img-2"
 										style="background-image: url({{property.image.url}});"></a>
 									<div class="text p-3">
 										<div class="d-flex">
 											<div class="one">
-												<h3><a href="hotel-single.html">{{property}}</a></h3>
+												<h3><a href="{{property.get_absolute_url}}">{{property}}</a></h3>
 												<p class="rate">
 													<i class="icon-star"></i>
 													<i class="icon-star"></i>
@@ -140,11 +140,12 @@
 													class="price per-price">${{property.price}}<br><small>/night</small></span>
 											</div>
 										</div>
-										<p>{{property.description|safe|truncatewords:1}}</p>
+										<p>{{property.description|safe|truncatewords:10}}</p>
 										<hr>
 										<p class="bottom-area d-flex">
 											<span><i class="icon-map-o"></i>{{property.place}}</span>
-											<span class="ml-auto"><a href="#">Book Now</a></span>
+											<span class="ml-auto"><a href="{{property.get_absolute_url}}">Book
+													Now</a></span>
 										</p>
 									</div>
 								</div>

@@ -1,9 +1,14 @@
+from django.http import JsonResponse
 from django.shortcuts import render
 from property.models import Property , Place , Category
 from django.db.models.query_utils import Q
 from django.db.models import Count
 from blog.models import Post
 from django.contrib.auth.models import User
+from .models import NewsLitter
+from .models import  Info
+from .tasks import send_mail_task
+
 
 
 def home(request):
@@ -52,5 +57,23 @@ def category_filter(request , category):
     return render(request , 'settings/home_search.html' , {'property_list':property_list})
 
     
-def contact_us(request):
-    pass
+def contact(request):
+    site_info = Info.objects.last()
+
+    if request.method == 'POST':
+        subject = request.POST['subject']
+        name = request.POST['name']
+        email = request.POST['email']
+        message = request.POST['message']
+
+
+        send_mail_task.delay(subject , name,email,message)
+
+
+    return render(request,'settings/contact.html',{'site_info': site_info})
+
+
+def news_letters_subscribe(request):
+    email = request.POST.get('emailinput')
+    NewsLitter.objects.create(email=email)
+    return JsonResponse({'done':'done'})

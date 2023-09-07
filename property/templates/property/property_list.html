@@ -24,7 +24,6 @@
             <div class="col-lg-3 sidebar">
                 <div class="sidebar-wrap bg-light ftco-animate">
                     <h3 class="heading mb-4">Find City</h3>
-                    <form action="#">
 						<form   class="form">
 							{% csrf_token %}
 							{% bootstrap_form filter.form %}
@@ -32,7 +31,6 @@
 							<button type="submit" class="btn btn-primary">Search</button>
 							{% endbuttons %}
 						</form>
-                    </form>
                 </div>
 
             </div>
@@ -65,7 +63,7 @@
                                         <span class="price per-price">${{property.price}}<br><small>/night</small></span>
                                     </div>
                                 </div>
-                                <p>{{property.description|safe|truncatewords:1}}</p>
+                                <p>{{property.description|safe|truncatewords:10}}</p>
                                 <hr>
                                 <p class="bottom-area d-flex">
                                     <span><i class="icon-map-o"></i>{{property.place}}</span>
