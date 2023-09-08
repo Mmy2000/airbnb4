@@ -51,6 +51,8 @@ INSTALLED_APPS = [
     'django_filters',
     'tof',
 ]
+SITE_ID = 1
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -161,3 +163,13 @@ EMAIL_HOST_USER = ''
 EMAIL_HOST_PASSOWRD = ''
 EMAIL_USE_TLS = False
 EMAIL_PORT = 1025
+
+BROKER_URL = 'redis://localhost:6379'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = TIME_ZONE
+
+CELERY_TASK_ALWAYS_EAGER = True
+CELERY_TASK_EAGER_PROPAGATES = True

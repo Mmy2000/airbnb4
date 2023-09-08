@@ -7,6 +7,8 @@ from blog.models import Post
 from django.contrib.auth.models import User
 from .models import NewsLitter
 from .models import  Info
+from django.core.mail import send_mail
+from django.conf import settings
 from .tasks import send_mail_task
 
 
