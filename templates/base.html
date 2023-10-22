@@ -49,7 +49,7 @@
               class="nav-link">{% translate "Properties" %}</a></li>
           <li class="nav-item"><a href="{% url 'blog:post_list' %}" class="nav-link">{% translate "Blog" %}</a></li>
           <li class="nav-item"><a href="{% url 'home:contact' %}" class="nav-link">{% translate "Contact" %}</a></li>
-          <li class="nav-item cta"><a href="#" class="nav-link"><span>{% translate "Add listing" %}</span></a></li>
+          <li class="nav-item cta"><a href="{% url 'property:property_new'%}" class="nav-link"><span>{% translate "Add listing" %}</span></a></li>
 
           {% if request.user.is_authenticated %}
           <li class="nav-item cta"><a href="{% url 'accounts:profile' %}" class="nav-link">Profile</a></li>

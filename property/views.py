@@ -2,11 +2,13 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic import ListView , DetailView , CreateView
 from .models import Property
 from django.views.generic.edit import FormMixin
-from .forms import PropertyBookForm
+from .forms import PropertyBookForm , PropertyImageFormset , PropertyForm
 from . filter import PropertyFilter
 from django_filters.views import FilterView
 from property.models import PropertyBook
 from .forms import PropertyReviewForm
+from django.urls import reverse
+
 
 
 
@@ -29,9 +31,9 @@ class PropertyDetail(FormMixin , DetailView):
         return context
     
     def post(self , request , *args , **kwargs):
-        form1 = self.get_form()
-        if form1.is_valid():
-            myform = form1.save(commit=False)
+        form = self.get_form()
+        if form.is_valid():
+            myform = form.save(commit=False)
             myform.property= self.get_object()
             myform.user = request.user
             myform.save()
@@ -39,5 +41,33 @@ class PropertyDetail(FormMixin , DetailView):
             return redirect('/')
 
 class AddListing(CreateView):
-    pass
+    model = Property
+    form_class = PropertyForm
 
+
+    def get(self , request , *args , **kwargs):
+        self.object = None
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
+        image_formset = PropertyImageFormset
+        return self.render_to_response(self.get_context_data(
+            form = form , 
+            image_formset = image_formset ,
+        ))
+
+    def post(self, request, *args, **kwargs):
+        form = self.get_form()
+        image_formsets = PropertyImageFormset(self.request.POST , self.request.FILES)
+        if form.is_valid() and image_formsets.is_valid():
+            myform = form.save(commit=False)
+            myform.owner = request.user
+            myform.save()
+            room = Property.objects.get(id=myform.id)
+            for form in image_formsets:
+                myform2 = form.save(commit = False)
+                myform2.property = room
+                myform2.save()
+
+            ### send gmail message
+
+            return redirect(reverse('property:property_list'))
