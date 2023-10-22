@@ -8,6 +8,6 @@ urlpatterns = [
     path('profile/' , views.profile , name='profile'),
     path('reservation/' , views.myreservation , name='reservation'),
     path('mylisting/' , views.mylisting , name='mylisting'),
-
+    path('profile/reservation/<slug:slug>/review', views.add_feedback , name='add_feedback'),
     path('profile/edit' , views.edit_profile , name='edit_profile'),
 ]

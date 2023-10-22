@@ -1,4 +1,4 @@
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic import ListView , DetailView , CreateView
 from .models import Property
 from django.views.generic.edit import FormMixin
@@ -6,6 +6,8 @@ from .forms import PropertyBookForm
 from . filter import PropertyFilter
 from django_filters.views import FilterView
 from property.models import PropertyBook
+from .forms import PropertyReviewForm
+
 
 
 class PropertyList(FilterView):
@@ -27,9 +29,9 @@ class PropertyDetail(FormMixin , DetailView):
         return context
     
     def post(self , request , *args , **kwargs):
-        form = self.get_form()
-        if form.is_valid():
-            myform = form.save(commit=False)
+        form1 = self.get_form()
+        if form1.is_valid():
+            myform = form1.save(commit=False)
             myform.property= self.get_object()
             myform.user = request.user
             myform.save()
@@ -38,3 +40,4 @@ class PropertyDetail(FormMixin , DetailView):
 
 class AddListing(CreateView):
     pass
+

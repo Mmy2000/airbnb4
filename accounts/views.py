@@ -1,9 +1,10 @@
-from django.shortcuts import render , redirect
+from django.shortcuts import render , redirect , get_object_or_404
 from .forms import SignupForm , UserForm , ProfileForm
 from .models import Profile
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate , login 
 from property.models import PropertyBook , Property
+from property.forms import PropertyReviewForm
 
 
 
@@ -61,3 +62,19 @@ def myreservation(request):
 def mylisting(request):
     property_list = Property.objects.filter(owner=request.user)
     return render(request , 'profile/mylisting.html',{'property_list':property_list})
+
+
+def add_feedback(request , slug):
+    property = get_object_or_404(Property , slug=slug)
+    if request.method == 'POST':
+        form = PropertyReviewForm(request.POST)
+        if form.is_valid():
+            myform = form.save(commit=False)
+            myform.property = property
+            myform.auther = request.user
+            myform.save()
+
+    else:
+        form = PropertyReviewForm()
+
+    return render(request,'profile/property_feedback.html' , {'form':form , 'property':property})
