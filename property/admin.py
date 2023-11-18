@@ -4,7 +4,7 @@ from django_summernote.admin import SummernoteModelAdmin
 
 class SomeModelAdmin(SummernoteModelAdmin):  # instead of ModelAdmin
     summernote_fields = '__all__'
-    list_display = ['name' , 'price' , 'get_avg_rating' ,'check_avilability']
+    list_display = ['name' , 'price'  ,'check_avilability']
 
 admin.site.register(Property,SomeModelAdmin)
 

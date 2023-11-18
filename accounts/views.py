@@ -65,28 +65,13 @@ def mylisting(request):
     property_list = Property.objects.filter(owner=request.user)
     return render(request , 'profile/mylisting.html',{'property_list':property_list})
 
-'''
-def add_feedback(request , slug):
-    property = get_object_or_404(Property , slug=slug)
-    if request.method == 'POST':
-        form = PropertyReviewForm(request.POST)
-        if form.is_valid():
-            myform = form.save(commit=False)
-            myform.property = property
-            myform.auther = request.user
-            myform.save()
 
-    else:
-        form = PropertyReviewForm()
 
-    return render(request,'profile/property_feedback.html' , {'form':form , 'property':property})
-'''
-
-def submit_review(request,id):
+def submit_review(request,property_id):
     url = request.META.get('HTTP_REFERER')
     if request.method =="POST":
         try:
-            reviews = PropertyReview.objects.get(user__id=request.user.id , id=id)
+            reviews = PropertyReview.objects.get(user__id=request.user.id , property_id=property_id)
             form = PropertyReviewForm(request.POST , instance=reviews)
             form.save()
             messages.success(request,'Thank You , Your Review has been updated.')
@@ -99,7 +84,7 @@ def submit_review(request,id):
                 data.rating = form.cleaned_data['rating']
                 data.review = form.cleaned_data['review']
                 data.ip = request.META.get('REMOTE_ADDR')
-                data.property_id = id
+                data.property_id = property_id
                 data.user_id = request.user.id
                 data.save()
                 messages.success(request,'Thank You , Your Review has been submitted.')

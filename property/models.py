@@ -28,15 +28,7 @@ class Property(models.Model):
     def get_absolute_url(self):
         return reverse("property:property_detail", kwargs={"slug": self.slug})
     
-    def get_avg_rating(self):
-        all_reviews = self.review_property.all()
-        all_rating = 0
-        if len(all_reviews)>0:
-            for review in all_reviews:
-                all_rating += review.rate
-            return round(all_rating/len(all_reviews),2)
-        else :
-            return '-'
+
         
     def check_avilability(self):
         all_reservations = self.book_property.all()

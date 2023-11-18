@@ -8,6 +8,9 @@ from django_filters.views import FilterView
 from property.models import PropertyBook
 from .forms import PropertyReviewForm
 from django.urls import reverse
+from property.models import PropertyBook , Property,PropertyReview
+from property.forms import PropertyReviewForm
+from django.contrib import messages
 
 
 
@@ -71,3 +74,4 @@ class AddListing(CreateView):
             ### send gmail message
 
             return redirect(reverse('property:property_list'))
+

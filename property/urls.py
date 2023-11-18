@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import PropertyDetail  , PropertyList , AddListing
+from .views import PropertyDetail  , PropertyList , AddListing 
 
 app_name = 'property'
 
