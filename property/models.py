@@ -76,11 +76,15 @@ class Category(models.Model):
     
 
 class PropertyReview(models.Model):
-    auther = models.ForeignKey(User, related_name="review_auther", on_delete=models.CASCADE)
+    user = models.ForeignKey(User, related_name="review_auther", on_delete=models.CASCADE)
     property = models.ForeignKey("Property", related_name="review_property", on_delete=models.CASCADE)
-    rate = models.IntegerField(default=0)
-    feedback = models.TextField(max_length=2000)
+    rating = models.FloatField()
+    subject = models.CharField( max_length=50,blank=True)
+    review = models.TextField(max_length=2000,blank=True)
+    ip = models.CharField( max_length=50,blank=True)
+    status = models.BooleanField(default=True)
     created_at = models.DateTimeField( default=timezone.now)
+    updated_at = models.DateTimeField( auto_now=True)
 
     def __str__(self):
         return str(self.property)

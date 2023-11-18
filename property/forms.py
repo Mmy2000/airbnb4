@@ -15,7 +15,7 @@ class PropertyBookForm(forms.ModelForm):
 class PropertyReviewForm(forms.ModelForm):
     class Meta:
         model = PropertyReview
-        fields = ['rate','feedback']
+        fields = ['subject','review','rating']
 
 class PropertyImageForm(forms.ModelForm):
     class Meta:
