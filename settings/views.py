@@ -17,7 +17,7 @@ def home(request):
     places = Place.objects.all().annotate(property_count=Count('property_place'))
     category = Category.objects.all()
 
-    resturant_list = Property.objects.filter(category__name = 'restaurant')[:5]
+    resturant_list = Property.objects.filter(category__name = 'restaurant')[:4]
     hotel_list = Property.objects.filter(category__name = 'hotels')[:4]
     places_list = Property.objects.filter(category__name = 'Places')[:4]
     recent_post = Post.objects.all()[:4]
@@ -56,6 +56,11 @@ def home_search(request):
 def category_filter(request , category):
     category = Category.objects.get(name = category)
     property_list = Property.objects.filter(category=category)
+    return render(request , 'settings/home_search.html' , {'property_list':property_list})
+
+def place_filter(request , place):
+    place = Place.objects.get(name = place)
+    property_list = Property.objects.filter(place=place)
     return render(request , 'settings/home_search.html' , {'property_list':property_list})
 
     

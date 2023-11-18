@@ -14,7 +14,7 @@ from django.urls import reverse
 
 class PropertyList(FilterView):
     model = Property 
-    paginate_by = 2
+    paginate_by = 9
     filterset_class = PropertyFilter
     template_name = 'property/property_list.html'
 

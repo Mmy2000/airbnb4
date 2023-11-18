@@ -21,10 +21,10 @@
 <section class="ftco-section ftco-degree-bg">
     <div class="container">
         <div class="row">
-            <div class="col-lg-9">
+            <div class="col-lg-12">
                 <div class="row">
                     {% for property in property_list %}
-                        <div class="col-md-4 ftco-animate">
+                        <div class="col-md-3 ftco-animate">
                         <div class="destination">
                             <a href="{{property.get_absolute_url}}"
                                 class="img img-2 d-flex justify-content-center align-items-center"
@@ -50,7 +50,7 @@
                                         <span class="price per-price">${{property.price}}<br><small>/night</small></span>
                                     </div>
                                 </div>
-                                <p>{{property.description|safe|truncatewords:1}}</p>
+                                <p>{{property.description|safe|truncatewords:5}}</p>
                                 <hr>
                                 <p class="bottom-area d-flex">
                                     <span><i class="icon-map-o"></i>{{property.place}}</span>
