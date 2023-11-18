@@ -57,7 +57,7 @@ def edit_profile(requset):
         'profile_form':profile_form
     })
 
-def myreservation(request):
+def myreservation(request,):
     property_list = PropertyBook.objects.filter(user=request.user)
     return render(request , 'profile/reservation.html',{'property_list':property_list})
 

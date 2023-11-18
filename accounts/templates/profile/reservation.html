@@ -26,7 +26,7 @@
                     {% for property in property_list %}
                     <div class="col-md-4 ftco-animate">
                         <div class="destination">
-                            <a href="{{property.get_absolute_url}}"
+                            <a href="{{property.property.get_absolute_url}}"
                                 class="img img-2 d-flex justify-content-center align-items-center"
                                 style="background-image: url({{property.property.image.url}});">
                                 <div class="icon d-flex justify-content-center align-items-center">
@@ -36,7 +36,7 @@
                             <div class="text p-3">
                                 <div class="d-flex">
                                     <div class="one">
-                                        <h3><a href="{{property.get_absolute_url}}">{{property.property.name}}</a></h3>
+                                        <h3><a href="{{property.property.get_absolute_url}}">{{property.property.name}}</a></h3>
                                         <p class="rate">
                                             <i class="icon-star"></i>
                                             <i class="icon-star"></i>
@@ -55,7 +55,7 @@
                                 <hr>
                                 <p class="bottom-area d-flex">
                                     <span><i class="icon-map-o"></i>{{property.property.place}}</span>
-                                    <span class="ml-auto"><a href="{% url 'accounts:submit_review' property.property.property_id %}">Add
+                                    <span class="ml-auto"><a href="{% url 'accounts:submit_review' property.property_id %}">Add
                                             Review</a></span>
                                 </p>
                             </div>
