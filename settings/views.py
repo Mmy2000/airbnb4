@@ -1,6 +1,6 @@
 from django.http import JsonResponse
 from django.shortcuts import render
-from property.models import Property , Place , Category
+from property.models import Property , Place , Category , PropertyReview
 from django.db.models.query_utils import Q
 from django.db.models import Count
 from blog.models import Post
@@ -13,7 +13,7 @@ from .tasks import send_mail_task
 
 
 
-def home(request):
+def home(request,):
     places = Place.objects.all().annotate(property_count=Count('property_place'))
     category = Category.objects.all()
 
@@ -26,6 +26,9 @@ def home(request):
     resturant_count = Property.objects.filter(category__name = 'restaurant').count()
     hotel_count = Property.objects.filter(category__name = 'hotels').count()
     places_count = Property.objects.filter(category__name = 'Places').count()
+    propertys = Property.objects.all()
+    for property in propertys:
+        reviews = PropertyReview.objects.filter( property_id=property.id)
 
 
 
@@ -41,6 +44,8 @@ def home(request):
         'places_count' : places_count,
         'hotel_count' : hotel_count,
         'resturant_count' : resturant_count,
+        'reviews':reviews,
+        'propertys':propertys,
     })
 
 def home_search(request):
