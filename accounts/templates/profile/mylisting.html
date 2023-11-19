@@ -21,10 +21,10 @@
     <div class="container">
         <div class="row">
 
-            <div class="col-lg-9">
+            <div class="col-lg-12">
                 <div class="row">
                     {% for property in property_list %}
-                        <div class="col-md-4 ftco-animate">
+                        <div class="col-md-3 ftco-animate">
                         <div class="destination">
                             <a href="{{property.get_absolute_url}}"
                                 class="img img-2 d-flex justify-content-center align-items-center"
@@ -37,24 +37,30 @@
                                 <div class="d-flex">
                                     <div class="one">
                                         <h3><a href="{{property.get_absolute_url}}">{{property.name}}</a></h3>
-                                        <p class="rate">
-                                            <i class="icon-star"></i>
-                                            <i class="icon-star"></i>
-                                            <i class="icon-star"></i>
-                                            <i class="icon-star"></i>
-                                            <i class="icon-star-o"></i>
-                                            <span>8 Rating</span>
-                                        </p>
+                                        <div class="rating-star">
+								<span>
+									<i class="fa fa-star{% if property.avr_review < 0.5%}-o{% elif property.avr_review >= 0.5 and property.avr_review < 1%}-half-o{%endif%}"
+										aria-hidden="true"></i>
+									<i class="fa fa-star{% if property.avr_review < 1.5%}-o{% elif property.avr_review >= 1.5 and property.avr_review < 2%}-half-o{%endif%}"
+										aria-hidden="true"></i>
+									<i class="fa fa-star{% if property.avr_review < 2.5%}-o{% elif property.avr_review >= 2.5 and property.avr_review < 3%}-half-o{%endif%}"
+										aria-hidden="true"></i>
+									<i class="fa fa-star{% if property.avr_review < 3.5%}-o{% elif property.avr_review >= 3.5 and property.avr_review < 4%}-half-o{%endif%}"
+										aria-hidden="true"></i>
+									<i class="fa fa-star{% if property.avr_review < 4.5%}-o{% elif property.avr_review >= 4.5 and property.avr_review < 5%}-half-o{%endif%}"
+										aria-hidden="true"></i>
+								</span>
+							</div>
                                     </div>
                                     <div class="two">
                                         <span class="price per-price">${{property.price}}<br><small>/night</small></span>
                                     </div>
                                 </div>
-                                <p>{{property.description|safe|truncatewords:1}}</p>
+                                <p>{{property.description|safe|truncatewords:5}}</p>
                                 <hr>
                                 <p class="bottom-area d-flex">
                                     <span><i class="icon-map-o"></i>{{property.place}}</span>
-                                    <span class="ml-auto"><a href="{{property.get_absolute_url}}">View Room</a></span>
+                                    <span class="ml-auto"><a href="{{property.get_absolute_url}}">View {{property.category}}</a></span>
                                 </p>
                             </div>
                         </div>
