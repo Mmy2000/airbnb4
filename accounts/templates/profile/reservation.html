@@ -37,21 +37,27 @@
                                 <div class="d-flex">
                                     <div class="one">
                                         <h3><a href="{{property.property.get_absolute_url}}">{{property.property.name}}</a></h3>
-                                        <p class="rate">
-                                            <i class="icon-star"></i>
-                                            <i class="icon-star"></i>
-                                            <i class="icon-star"></i>
-                                            <i class="icon-star"></i>
-                                            <i class="icon-star-o"></i>
-                                            <span>8 Rating</span>
-                                        </p>
+                                        <div class="rating-star">
+								<span>
+									<i class="fa fa-star{% if property.property.avr_review < 0.5%}-o{% elif property.property.avr_review >= 0.5 and property.property.avr_review < 1%}-half-o{%endif%}"
+										aria-hidden="true"></i>
+									<i class="fa fa-star{% if property.property.avr_review < 1.5%}-o{% elif property.property.avr_review >= 1.5 and property.property.avr_review < 2%}-half-o{%endif%}"
+										aria-hidden="true"></i>
+									<i class="fa fa-star{% if property.property.avr_review < 2.5%}-o{% elif property.property.avr_review >= 2.5 and property.property.avr_review < 3%}-half-o{%endif%}"
+										aria-hidden="true"></i>
+									<i class="fa fa-star{% if property.property.avr_review < 3.5%}-o{% elif property.property.avr_review >= 3.5 and property.property.avr_review < 4%}-half-o{%endif%}"
+										aria-hidden="true"></i>
+									<i class="fa fa-star{% if property.property.avr_review < 4.5%}-o{% elif property.property.avr_review >= 4.5 and property.property.avr_review < 5%}-half-o{%endif%}"
+										aria-hidden="true"></i>
+								</span>
+							</div>
                                     </div>
                                     <div class="two">
                                         <span
                                             class="price per-price">${{property.property.price}}<br><small>/night</small></span>
                                     </div>
                                 </div>
-                                <p>{{property.property.description|safe|truncatewords:1}}</p>
+                                <p>{{property.property.description|safe|truncatewords:5}}</p>
                                 <hr>
                                 <p class="bottom-area d-flex">
                                     <span><i class="icon-map-o"></i>{{property.property.place}}</span>
