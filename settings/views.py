@@ -25,7 +25,7 @@ def home(request,):
     users_count = User.objects.all().count()
     resturant_count = Property.objects.filter(category__name = 'restaurant').count()
     hotel_count = Property.objects.filter(category__name = 'hotels').count()
-    places_count = Property.objects.filter(category__name = 'Places').count()
+    places_count = Place.objects.filter().count()
     propertys = Property.objects.all()
     for property in propertys:
         reviews = PropertyReview.objects.filter( property_id=property.id)
