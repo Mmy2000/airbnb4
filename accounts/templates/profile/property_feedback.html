@@ -10,9 +10,10 @@
 			data-scrollax-parent="true">
 			<div class="col-md-9 ftco-animate text-center" data-scrollax=" properties: { translateY: '70%' }">
 				<p class="breadcrumbs" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><span
-						class="mr-2"><a href="index.html">Home</a></span> <span class="mr-2"><a
-							href="hotel.html">Hotel</a></span> <span>Hotel Single</span></p>
-				<h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Hotels Details
+						class="mr-2"><a href="/">Home</a></span> <span class="mr-2"><a
+							href="{% url 'property:property_list'%}">Hotels</a></span> <span><a
+							href="{{object.get_absolute_url}}">Hotel Single</a></span></p>
+				<h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Review
 				</h1>
 			</div>
 		</div>
@@ -25,37 +26,10 @@
 		<div class="row">
 			<div class="col-lg-10 mx-auto">
 				<div class="row">
-					<div class="col-md-12 ftco-animate">
-						<div class="single-slider owl-carousel">
-
-							{% for property_image in property_images %}
-							<div class="item">
-								<div class="hotel-img" style="background-image: url({{property_image.image.url}});">
-								</div>
-							</div>
-							{% endfor %}
-						</div>
-					</div>
-					<div class="col-md-12 hotel-single mt-4 mb-5 ftco-animate">
-						<span>Our Best hotels &amp; Rooms</span>
-						<h2>{{property}}</h2>
-						<p class="rate mb-5">
-							<span class="loc"><a href="#"><i class="icon-map"></i> {{property.place}}</a></span>
-							<span class="star">
-								<i class="icon-star"></i>
-								<i class="icon-star"></i>
-								<i class="icon-star"></i>
-								<i class="icon-star"></i>
-								<i class="icon-star-o"></i>
-								{{review_count}} Rating</span>
-						</p>
-						<p> {{property.description|safe}}</p>
-
-					</div>
 
 
 					<div class="col-md-12 hotel-single ftco-animate mb-5 mt-4">
-						<h4 class="mb-5">Add Your &amp; Feedback</h4>
+						<h4 class="mb-5">Add Your rate &amp; Feedback</h4>
 						<form action="" method="POST">
 							{% csrf_token %}
 							<h5>Write Your Rating</h5>

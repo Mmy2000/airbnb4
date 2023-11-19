@@ -3,6 +3,8 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.text import slugify 
+from django.db.models import Avg , Count
+
 
 
 # Create your models here.
@@ -28,7 +30,19 @@ class Property(models.Model):
     def get_absolute_url(self):
         return reverse("property:property_detail", kwargs={"slug": self.slug})
     
-
+    def avr_review(self):
+        reviews = PropertyReview.objects.filter(property=self , status=True).aggregate(average=Avg('rating'))
+        avg =0
+        if reviews['average'] is not None:
+            avg = float(reviews['average'])
+        return avg
+    
+    def count_review(self):
+        reviews = PropertyReview.objects.filter(property=self , status=True).aggregate(count=Count('id'))
+        count = 0
+        if reviews['count'] is not None:
+            count = int(reviews['count'])
+        return count
         
     def check_avilability(self):
         all_reservations = self.book_property.all()

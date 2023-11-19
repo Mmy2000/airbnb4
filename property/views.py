@@ -28,9 +28,10 @@ class PropertyDetail(FormMixin , DetailView):
     form_class = PropertyBookForm
 
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self,**kwargs):
         context = super().get_context_data(**kwargs)
         context["related"] = Property.objects.filter(category=self.get_object().category)[:2]
+        context["reviews"] = PropertyReview.objects.filter(property=self.get_object().id , status=True)
         return context
     
     def post(self , request , *args , **kwargs):

@@ -29,5 +29,5 @@ input:checked + label:hover,input:checked ~ label:hover,input:checked ~ label:ho
     color: #F08080;
 }
 .rating-star i{
-    color: #ffb503 !important;
+    color: #F08080 !important;
 }

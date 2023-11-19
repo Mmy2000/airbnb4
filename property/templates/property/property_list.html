@@ -24,20 +24,20 @@
             <div class="col-lg-3 sidebar">
                 <div class="sidebar-wrap bg-light ftco-animate">
                     <h3 class="heading mb-4">Find City</h3>
-						<form   class="form">
-							{% csrf_token %}
-							{% bootstrap_form filter.form %}
-							{% buttons %}
-							<button type="submit" class="btn btn-primary">Search</button>
-							{% endbuttons %}
-						</form>
+                    <form class="form">
+                        {% csrf_token %}
+                        {% bootstrap_form filter.form %}
+                        {% buttons %}
+                        <button type="submit" class="btn btn-primary">Search</button>
+                        {% endbuttons %}
+                    </form>
                 </div>
 
             </div>
             <div class="col-lg-9">
                 <div class="row">
                     {% for property in object_list %}
-                        <div class="col-md-4 ftco-animate">
+                    <div class="col-md-4 ftco-animate">
                         <div class="destination">
                             <a href="{{property.get_absolute_url}}"
                                 class="img img-2 d-flex justify-content-center align-items-center"
@@ -50,15 +50,24 @@
                                 <div class="d-flex">
                                     <div class="one">
                                         <h3><a href="{{property.get_absolute_url}}">{{property}}</a></h3>
-                                        {% if property.get_avg_rating %}
-                                        <p class="rate">
-                                            <i class="icon-star">&nbsp;{{property.get_avg_rating}}/10</i>
-                                        </p>
-                                        {% else %}
-                                        {% endif %}
+                                        <div class="rating-star">
+                                            <span>
+                                                <i class="fa fa-star{% if property.avr_review < 0.5%}-o{% elif property.avr_review >= 0.5 and property.avr_review < 1%}-half-o{%endif%}"
+                                                    aria-hidden="true"></i>
+                                                <i class="fa fa-star{% if property.avr_review < 1.5%}-o{% elif property.avr_review >= 1.5 and property.avr_review < 2%}-half-o{%endif%}"
+                                                    aria-hidden="true"></i>
+                                                <i class="fa fa-star{% if property.avr_review < 2.5%}-o{% elif property.avr_review >= 2.5 and property.avr_review < 3%}-half-o{%endif%}"
+                                                    aria-hidden="true"></i>
+                                                <i class="fa fa-star{% if property.avr_review < 3.5%}-o{% elif property.avr_review >= 3.5 and property.avr_review < 4%}-half-o{%endif%}"
+                                                    aria-hidden="true"></i>
+                                                <i class="fa fa-star{% if property.avr_review < 4.5%}-o{% elif property.avr_review >= 4.5 and property.avr_review < 5%}-half-o{%endif%}"
+                                                    aria-hidden="true"></i>
+                                            </span>
+                                        </div>
                                     </div>
                                     <div class="two">
-                                        <span class="price per-price">${{property.price}}<br><small>/night</small></span>
+                                        <span
+                                            class="price per-price">${{property.price}}<br><small>/night</small></span>
                                     </div>
                                 </div>
                                 <p>{{property.description|safe|truncatewords:10}}</p>
@@ -69,40 +78,40 @@
                                 </p>
                             </div>
                         </div>
-                        </div>
+                    </div>
                     {% endfor %}
                 </div>
-            {% if is_paginated %}
+                {% if is_paginated %}
                 <div class="row mt-5">
                     <div class="col text-center">
                         <div class="block-27">
                             <ul>
                                 {% if page_obj.has_previous %}
-                                    <li><a href="?page={{page_obj.previous_page_number}}">&lt;</a></li>
+                                <li><a href="?page={{page_obj.previous_page_number}}">&lt;</a></li>
                                 {% else %}
-                                    <li class="disabled"><span>&lt;</span></a></li>
+                                <li class="disabled"><span>&lt;</span></a></li>
                                 {% endif %}
 
                                 {% for i in paginator.page_range  %}
-                                    {% if page_obj.number == i%}
-                                        <li class="active"><span>{{i}}</span></li>
-                                    {%else%}
-                                        <li><a href="?page={{i}}">{{i}}</a></li> 
-                                    {% endif %}                                      
-                                
+                                {% if page_obj.number == i%}
+                                <li class="active"><span>{{i}}</span></li>
+                                {%else%}
+                                <li><a href="?page={{i}}">{{i}}</a></li>
+                                {% endif %}
+
                                 {% endfor %}
 
                                 {% if page_obj.has_next %}
-                                    <li><a href="?page={{page_obj.next_page_number}}"><span>&gt;</span></a></li>
+                                <li><a href="?page={{page_obj.next_page_number}}"><span>&gt;</span></a></li>
                                 {% else %}
-                                    <li class="disabled"><span>&gt;</span></a></li>
+                                <li class="disabled"><span>&gt;</span></a></li>
                                 {% endif %}
-                                
+
                             </ul>
                         </div>
                     </div>
                 </div>
-            {% endif %}
+                {% endif %}
             </div> <!-- .col-md-8 -->
         </div>
     </div>

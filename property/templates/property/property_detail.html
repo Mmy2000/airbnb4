@@ -40,67 +40,122 @@
 						<h2>{{object}}</h2>
 						<p class="rate mb-5">
 							<span class="loc"><a href="#"><i class="icon-map"></i>{{object.place}}</a></span>
+							<div class="rating-star">Rate :
+								<span>
+									<i class="fa fa-star{% if object.avr_review < 0.5%}-o{% elif object.avr_review >= 0.5 and object.avr_review < 1%}-half-o{%endif%}"
+										aria-hidden="true"></i>
+									<i class="fa fa-star{% if object.avr_review < 1.5%}-o{% elif object.avr_review >= 1.5 and object.avr_review < 2%}-half-o{%endif%}"
+										aria-hidden="true"></i>
+									<i class="fa fa-star{% if object.avr_review < 2.5%}-o{% elif object.avr_review >= 2.5 and object.avr_review < 3%}-half-o{%endif%}"
+										aria-hidden="true"></i>
+									<i class="fa fa-star{% if object.avr_review < 3.5%}-o{% elif object.avr_review >= 3.5 and object.avr_review < 4%}-half-o{%endif%}"
+										aria-hidden="true"></i>
+									<i class="fa fa-star{% if object.avr_review < 4.5%}-o{% elif object.avr_review >= 4.5 and object.avr_review < 5%}-half-o{%endif%}"
+										aria-hidden="true"></i>
+								</span>
+							</div>
 						</p>
-						<p>{{object.description|safe}}</p>
+
 					</div>
-					{% if object.check_avilability == 'available' %}
-					<h4> The Room Is Available Today</h4>
-					{% else %}
-					<h4>The Room Is Being Booked , And The Reservation {{object.check_avilability}}</h4>
-					{% endif %}
-					<div class="col-md-12 hotel-single ftco-animate mb-5 mt-4">
-						<h4 class="mb-5">Check Availability &amp; Booking</h4>
-						<form method="post" class="form">
-							{% csrf_token %}
-							{% bootstrap_form form %}
-							{% buttons %}
-							<button type="submit" class="btn btn-primary">Check Availability</button>
-							{% endbuttons %}
-						</form>
-					</div>
-					<div class="col-md-12 hotel-single ftco-animate mb-5 mt-5">
-						<h4 class="mb-4">Related Hotels</h4>
-						<div class="row">
-							{% for property in related  %}
-							<div class="col-md-4">
-								<div class="destination">
-									<a href="{{property.get_absolute_url}}" class="img img-2"
-										style="background-image: url({{property.image.url}});"></a>
-									<div class="text p-3">
-										<div class="d-flex">
-											<div class="one">
-												<h3><a href="{{property.get_absolute_url}}">{{property}}</a></h3>
-												<p class="rate">
-													<i class="icon-star"></i>
-													<i class="icon-star"></i>
-													<i class="icon-star"></i>
-													<i class="icon-star"></i>
-													<i class="icon-star-o"></i>
-													<span>8 Rating</span>
-												</p>
-											</div>
-											<div class="two">
-												<span
-													class="price per-price">${{property.price}}<br><small>/night</small></span>
+					<p>{{object.description|safe}}</p>
+				</div>
+				{% if object.check_avilability == 'available' %}
+				<h4> The Room Is Available Today</h4>
+				{% else %}
+				<h4>The Room Is Being Booked , And The Reservation {{object.check_avilability}}</h4>
+				{% endif %}
+				<div class="col-md-12 hotel-single ftco-animate mb-5 mt-4">
+					<h4 class="mb-5">Check Availability &amp; Booking</h4>
+					<form method="post" class="form">
+						{% csrf_token %}
+						{% bootstrap_form form %}
+						{% buttons %}
+						<button type="submit" class="btn btn-primary">Check Availability</button>
+						{% endbuttons %}
+					</form>
+				</div>
+				<div class="pt-5 mt-5">
+					<h3 class="mb-5">{{object.count_review}} Reviews</h3>
+					{% for review in reviews %}
+					<ul class="comment-list">
+						<li class="comment">
+							<div class="vcard bio">
+								<img src="{{review.user.profile.image.url}}" alt="Image placeholder">
+							</div>
+							<div class="comment-body">
+								<h3>{{review.user.username}}</h3>
+								<div class="rating-star">
+                                <span>
+                                    <i class="fa fa-star{% if review.rating == 0.5%}-half-o{% elif review.rating < 1%}-o{%endif%}"
+                                        aria-hidden="true"></i>
+                                    <i class="fa fa-star{% if review.rating == 1.5%}-half-o{% elif review.rating < 2%}-o{%endif%}"
+                                        aria-hidden="true"></i>
+                                    <i class="fa fa-star{% if review.rating == 2.5%}-half-o{% elif review.rating < 3%}-o{%endif%}"
+                                        aria-hidden="true"></i>
+                                    <i class="fa fa-star{% if review.rating == 3.5%}-half-o{% elif review.rating < 4%}-o{%endif%}"
+                                        aria-hidden="true"></i>
+                                    <i class="fa fa-star{% if review.rating == 4.5%}-half-o{% elif review.rating < 5%}-o{%endif%}"
+                                        aria-hidden="true"></i>
+                                </span>
+                            </div>
+								<div class="meta">{{review.updated_at}}</div>
+								<h6>{{review.subject}}</h6>
+								<p>{{review.review}}</p>
+							</div>
+						</li>
+					</ul>
+					{% endfor %}
+					<!-- END comment-list -->
+				</div>
+				<div class="col-md-12 hotel-single ftco-animate mb-5 mt-5">
+					<h4 class="mb-4">Related Hotels</h4>
+					<div class="row">
+						{% for property in related  %}
+						<div class="col-md-4">
+							<div class="destination">
+								<a href="{{property.get_absolute_url}}" class="img img-2"
+									style="background-image: url({{property.image.url}});"></a>
+								<div class="text p-3">
+									<div class="d-flex">
+										<div class="one">
+											<h3><a href="{{property.get_absolute_url}}">{{property}}</a></h3>
+											<div class="rating-star">
+												<span>
+													<i class="fa fa-star{% if object.avr_review < 0.5%}-o{% elif object.avr_review >= 0.5 and object.avr_review < 1%}-half-o{%endif%}"
+														aria-hidden="true"></i>
+													<i class="fa fa-star{% if object.avr_review < 1.5%}-o{% elif object.avr_review >= 1.5 and object.avr_review < 2%}-half-o{%endif%}"
+														aria-hidden="true"></i>
+													<i class="fa fa-star{% if object.avr_review < 2.5%}-o{% elif object.avr_review >= 2.5 and object.avr_review < 3%}-half-o{%endif%}"
+														aria-hidden="true"></i>
+													<i class="fa fa-star{% if object.avr_review < 3.5%}-o{% elif object.avr_review >= 3.5 and object.avr_review < 4%}-half-o{%endif%}"
+														aria-hidden="true"></i>
+													<i class="fa fa-star{% if object.avr_review < 4.5%}-o{% elif object.avr_review >= 4.5 and object.avr_review < 5%}-half-o{%endif%}"
+														aria-hidden="true"></i>
+												</span>
 											</div>
 										</div>
-										<p>{{property.description|safe|truncatewords:10}}</p>
-										<hr>
-										<p class="bottom-area d-flex">
-											<span><i class="icon-map-o"></i>{{property.place}}</span>
-											<span class="ml-auto"><a href="{{property.get_absolute_url}}">Book
-													Now</a></span>
-										</p>
+										<div class="two">
+											<span
+												class="price per-price">${{property.price}}<br><small>/night</small></span>
+										</div>
 									</div>
+									<p>{{property.description|safe|truncatewords:10}}</p>
+									<hr>
+									<p class="bottom-area d-flex">
+										<span><i class="icon-map-o"></i>{{property.place}}</span>
+										<span class="ml-auto"><a href="{{property.get_absolute_url}}">Book
+												Now</a></span>
+									</p>
 								</div>
 							</div>
-							{% endfor %}
 						</div>
+						{% endfor %}
 					</div>
-
 				</div>
-			</div> <!-- .col-md-8 -->
-		</div>
+
+			</div>
+		</div> <!-- .col-md-8 -->
+	</div>
 	</div>
 </section> <!-- .section -->
 {% endblock body %}
