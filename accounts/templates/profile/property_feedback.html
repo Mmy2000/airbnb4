@@ -11,8 +11,7 @@
 			<div class="col-md-9 ftco-animate text-center" data-scrollax=" properties: { translateY: '70%' }">
 				<p class="breadcrumbs" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><span
 						class="mr-2"><a href="/">Home</a></span> <span class="mr-2"><a
-							href="{% url 'property:property_list'%}">Hotels</a></span> <span><a
-							href="{{object.get_absolute_url}}">Hotel Single</a></span></p>
+							href="{% url 'property:property_list'%}">Hotels</a></span></p>
 				<h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Review
 				</h1>
 			</div>
@@ -34,7 +33,7 @@
 							{% csrf_token %}
 							<h5>Write Your Rating</h5>
 							<div>
-								<label>How do you rate this product?</label>
+								<label>How do you rate this property?</label>
 								<br>
 								<div class="rate">
 									<input id="rating10" value="5" type="radio" name="rating" required><label
