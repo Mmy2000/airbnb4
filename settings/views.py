@@ -26,9 +26,7 @@ def home(request,):
     resturant_count = Property.objects.filter(category__name = 'restaurant').count()
     hotel_count = Property.objects.filter(category__name = 'hotels').count()
     places_count = Place.objects.filter().count()
-    propertys = Property.objects.all()
-    for property in propertys:
-        reviews = PropertyReview.objects.filter( property_id=property.id)
+    
 
 
 
@@ -44,8 +42,6 @@ def home(request,):
         'places_count' : places_count,
         'hotel_count' : hotel_count,
         'resturant_count' : resturant_count,
-        'reviews':reviews,
-        'propertys':propertys,
     })
 
 def home_search(request):
