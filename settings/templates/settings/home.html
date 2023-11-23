@@ -212,7 +212,7 @@
   									aria-hidden="true"></i>
   								<i class="fa fa-star{% if hotel.avr_review < 4.5%}-o{% elif hotel.avr_review >= 4.5 and hotel.avr_review < 5%}-half-o{%endif%}"
   									aria-hidden="true"></i>
-  							</span>
+  							</span>{{hotel.count_review}} reviews
   						</div>
   						<p>Far far away, behind the word mountains, far from the countries</p>
   						<hr>
@@ -262,7 +262,7 @@
   									aria-hidden="true"></i>
   								<i class="fa fa-star{% if resturant.avr_review < 4.5%}-o{% elif resturant.avr_review >= 4.5 and resturant.avr_review < 5%}-half-o{%endif%}"
   									aria-hidden="true"></i>
-  							</span>
+  							</span>{{resturant.count_review}} reviews
   						</div>
   						<p>Far far away, behind the word mountains, far from the countries</p>
   						<hr>
