@@ -76,8 +76,9 @@ def contact(request):
         message = render_to_string('settings/contact_recieved_email.html', {
         'user': request.user,
         })
-        email = request.POST['email']
         
+        email = request.POST['email']
+
 
 
         send_email = EmailMessage(mail_subject, message, to=[email])
