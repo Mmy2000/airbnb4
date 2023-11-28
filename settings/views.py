@@ -10,6 +10,9 @@ from .models import  Info
 from django.core.mail import send_mail
 from django.conf import settings
 from .tasks import send_mail_task
+from django.template.loader import render_to_string
+from django.core.mail import EmailMessage
+
 
 
 
@@ -69,13 +72,16 @@ def contact(request):
     site_info = Info.objects.last()
 
     if request.method == 'POST':
-        subject = request.POST['subject']
-        name = request.POST['name']
+        mail_subject = 'Thank you for your contact with us!'
+        message = render_to_string('settings/contact_recieved_email.html', {
+        'user': request.user,
+        })
         email = request.POST['email']
-        message = request.POST['message']
+        
 
 
-        send_mail_task.delay(subject , name,email,message)
+        send_email = EmailMessage(mail_subject, message, to=[email])
+        send_email.send()
 
 
     return render(request,'settings/contact.html',{'site_info': site_info})
