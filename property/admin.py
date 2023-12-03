@@ -4,12 +4,12 @@ from django_summernote.admin import SummernoteModelAdmin
 
 class SomeModelAdmin(SummernoteModelAdmin):  # instead of ModelAdmin
     summernote_fields = '__all__'
-    list_display = ['name' , 'price'  ,'check_avilability']
+    list_display = ['name' , 'price','category'  ,'check_avilability']
 
 admin.site.register(Property,SomeModelAdmin)
 
 class PropertyBookAdmin(admin.ModelAdmin):
-    list_display = ['property' , 'in_progress']
+    list_display = ['property' , 'in_progress' ]
 
 admin.site.register(PropertyReview)
 admin.site.register(PropertyImages)
