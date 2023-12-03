@@ -92,3 +92,6 @@ def news_letters_subscribe(request):
     email = request.POST.get('emailinput')
     NewsLitter.objects.create(email=email)
     return JsonResponse({'done':'done'})
+
+def dashboard(request):
+    return render(request , 'settings/dashboard.html')
