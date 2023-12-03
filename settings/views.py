@@ -12,6 +12,9 @@ from django.conf import settings
 from .tasks import send_mail_task
 from django.template.loader import render_to_string
 from django.core.mail import EmailMessage
+from property import models as property_models
+from blog import models as blog_models
+
 
 
 
@@ -94,4 +97,20 @@ def news_letters_subscribe(request):
     return JsonResponse({'done':'done'})
 
 def dashboard(request):
-    return render(request , 'settings/dashboard.html')
+
+    users_count = User.objects.all().count()
+    appartments_count = property_models.Property.objects.filter(category__name='hotels').count()
+    villa_count = property_models.Property.objects.filter(category__name='restaurant').count()
+    suits_count = property_models.Property.objects.filter(category__name='shopping').count()
+    posts = blog_models.Post.objects.all().count()
+    booking = property_models.PropertyBook.objects.all().count()
+
+    context = {
+        'users_count' : users_count , 
+        'appartments_count': appartments_count , 
+        'villa_count' : villa_count  , 
+        'suits_count' : suits_count ,  
+        'posts_count' : posts , 
+        'booking_count' : booking
+    }
+    return render(request , 'settings/dashboard.html' , context)
