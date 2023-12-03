@@ -104,6 +104,7 @@ def dashboard(request):
     suits_count = property_models.Property.objects.filter(category__name='shopping').count()
     posts = blog_models.Post.objects.all().count()
     booking = property_models.PropertyBook.objects.all().count()
+    places_count = Place.objects.all().count()
 
     context = {
         'users_count' : users_count , 
@@ -111,6 +112,7 @@ def dashboard(request):
         'villa_count' : villa_count  , 
         'suits_count' : suits_count ,  
         'posts_count' : posts , 
-        'booking_count' : booking
+        'booking_count' : booking,
+        'places_count':places_count
     }
     return render(request , 'settings/dashboard.html' , context)
