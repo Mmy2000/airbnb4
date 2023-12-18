@@ -81,7 +81,7 @@ def contact(request):
         form = ContactForm(request.POST)
         if form.is_valid(): 
             form.save()
-            subject = "Welcome to PythonGuides Training Course"
+            subject = "Welcome , Airbnb with you. "
             message = "Our team will contact you within 24hrs."
             email_from = settings.EMAIL_HOST_USER
             email = form.cleaned_data['email']
