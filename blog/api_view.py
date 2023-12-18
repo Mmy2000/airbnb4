@@ -14,3 +14,11 @@ def post_list_api(request):
     # all_posts = get_list_or_404(Post)
     data = PostSerializer(all_posts , many=True).data
     return Response({'Success':True , 'Post List' : data})
+
+@api_view(['GET'])
+# @permission_classes([IsAuthenticated])
+def post_detail(request,id):
+    # post = Post.objects.get(id=id)
+    post = get_object_or_404(Post , id=id)
+    data = PostSerializer(post).data
+    return Response({'Success': True , 'Post Detail' : data, 'Code' : 200})

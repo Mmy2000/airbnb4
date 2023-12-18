@@ -12,4 +12,5 @@ urlpatterns = [
     path('tags/<str:slug>' , views.PostByTags.as_view() , name='post_by_tags'),
 
     path('api/list' , api_view.post_list_api , name='post_list_api'),
+    path('api/list/<int:id>' , api_view.post_detail , name='post_detail_api'),
 ]
