@@ -18,6 +18,7 @@ class Property(models.Model):
     category = models.ForeignKey('Category',related_name='property_category',on_delete=models.CASCADE)
     created_at = models.DateTimeField( default=timezone.now)
     slug = models.SlugField(null=True,blank=True)
+    views = models.PositiveIntegerField(default=0)
 
     def save(self,*args, **kwargs):
         if not self.slug:

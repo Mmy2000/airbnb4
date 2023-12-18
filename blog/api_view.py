@@ -12,7 +12,7 @@ from django.shortcuts import get_list_or_404, get_object_or_404
 def post_list_api(request):
     all_posts = Post.objects.all()
     # all_posts = get_list_or_404(Post)
-    data = PostSerializer(all_posts , many=True).data
+    data = PostSerializer(all_posts , many=True , context={'request':request}).data
     return Response({'Success':True , 'Post List' : data})
 
 @api_view(['GET'])

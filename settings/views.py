@@ -14,7 +14,7 @@ from django.template.loader import render_to_string
 from django.core.mail import EmailMessage
 from property import models as property_models
 from blog import models as blog_models
-
+from .models import Settings
 
 
 
@@ -32,6 +32,8 @@ def home(request,):
     resturant_count = Property.objects.filter(category__name = 'restaurant').count()
     hotel_count = Property.objects.filter(category__name = 'hotels').count()
     places_count = Place.objects.filter().count()
+    settings = Settings.objects.all()
+    settings.views += settings.views
     
 
 

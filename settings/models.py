@@ -14,6 +14,7 @@ class Settings(models.Model):
     twitter_link = models.URLField( max_length=200)
     instagram_link = models.URLField( max_length=200)
     address = models.CharField( max_length=50)
+    views = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return self.site_name
