@@ -26,7 +26,7 @@ input:checked ~ label,label:hover ~ label{
     color: #d04d3e;
 }
 input:checked + label:hover,input:checked ~ label:hover,input:checked ~ label:hover ~ label,label:hover ~ input:checked ~ label{
-    color: #c23822;
+    color: #ae2f1b;
 }
 .rating-star i{
     color:  #d04d3e !important;

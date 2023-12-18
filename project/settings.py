@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     "bootstrap4",
     'django_filters',
     'tof',
+    'rest_framework',
 ]
 SITE_ID = 1
 

@@ -29,6 +29,7 @@ urlpatterns = [
     path('blog/' , include('blog.urls',namespace='blog')),
     path('about/' , include('about.urls',namespace='about')),
     path("i18n/", include("django.conf.urls.i18n")),
+    path('api-auth/', include('rest_framework.urls'))
 ]
 
 urlpatterns +=  static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
