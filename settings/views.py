@@ -1,5 +1,5 @@
 from django.http import JsonResponse
-from django.shortcuts import render
+from django.shortcuts import render , redirect
 from property.models import Property , Place , Category , PropertyReview
 from django.db.models.query_utils import Q
 from django.db.models import Count
@@ -14,7 +14,9 @@ from django.template.loader import render_to_string
 from django.core.mail import EmailMessage
 from property import models as property_models
 from blog import models as blog_models
-from .models import Settings
+from django.urls import reverse
+from .forms import ContactForm
+from django.contrib import messages
 
 
 
@@ -32,8 +34,7 @@ def home(request,):
     resturant_count = Property.objects.filter(category__name = 'restaurant').count()
     hotel_count = Property.objects.filter(category__name = 'hotels').count()
     places_count = Place.objects.filter().count()
-    settings = Settings.objects.all()
-    settings.views += settings.views
+
     
 
 
@@ -77,20 +78,25 @@ def contact(request):
     site_info = Info.objects.last()
 
     if request.method == 'POST':
-        mail_subject = 'Thank you for your contact with us!'
-        message = render_to_string('settings/contact_recieved_email.html', {
-        'user': request.user,
-        })
-        
-        email = request.POST['email']
+        form = ContactForm(request.POST)
+        if form.is_valid(): 
+            form.save()
+            subject = "Welcome to PythonGuides Training Course"
+            message = "Our team will contact you within 24hrs."
+            email_from = settings.EMAIL_HOST_USER
+            email = form.cleaned_data['email']
+            recipient_list =email
+            send_mail(subject, message, email_from, [recipient_list])
+            messages.success(request, 'Your message has been send')
+            return redirect(reverse('settings:contact'))
+    form = ContactForm()
+    context = {
+            'site_info':site_info , 
+            "form" :form ,
+        }
 
 
-
-        send_email = EmailMessage(mail_subject, message, to=[email])
-        send_email.send()
-
-
-    return render(request,'settings/contact.html',{'site_info': site_info})
+    return render(request,'settings/contact.html',context)
 
 
 def news_letters_subscribe(request):

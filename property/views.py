@@ -34,6 +34,8 @@ class PropertyDetail(FormMixin , DetailView):
         context["reviews"] = PropertyReview.objects.filter(property=self.get_object().id , status=True)
         return context
     
+    
+    
     def post(self , request , *args , **kwargs):
         form = self.get_form()
         if form.is_valid():
