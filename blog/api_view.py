@@ -22,3 +22,12 @@ def post_detail(request,id):
     post = get_object_or_404(Post , id=id)
     data = PostSerializer(post).data
     return Response({'Success': True , 'Post Detail' : data, 'Code' : 200})
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def post_search(request,query):
+    posts = Post.objects.filter(
+        Q(title__icontains=query) | Q(description__icontains=query)
+    )
+    data = PostSerializer(posts , many=True).data
+    return Response({'Success':True , 'Post Search Results' : data})
