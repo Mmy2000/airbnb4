@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     
 # my apps
+    
     'blog',
     'property',
     'about',
@@ -51,6 +52,12 @@ INSTALLED_APPS = [
     'django_filters',
     'tof',
     'rest_framework',
+    'rest_framework.authtoken',
+    'dj_rest_auth',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'dj_rest_auth.registration',
 ]
 SITE_ID = 1
 
