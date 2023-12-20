@@ -199,21 +199,29 @@
   						</div>
   					</a>
   					<div class="text p-3">
-  						<h3><a href="{{hotel.get_absolute_url}}">{{hotel}}</a></h3>
-  						<div class="rating-star">
-  							<span>
-  								<i class="fa fa-star{% if hotel.avr_review < 0.5%}-o{% elif hotel.avr_review >= 0.5 and hotel.avr_review < 1%}-half-o{%endif%}"
-  									aria-hidden="true"></i>
-  								<i class="fa fa-star{% if hotel.avr_review < 1.5%}-o{% elif hotel.avr_review >= 1.5 and hotel.avr_review < 2%}-half-o{%endif%}"
-  									aria-hidden="true"></i>
-  								<i class="fa fa-star{% if hotel.avr_review < 2.5%}-o{% elif hotel.avr_review >= 2.5 and hotel.avr_review < 3%}-half-o{%endif%}"
-  									aria-hidden="true"></i>
-  								<i class="fa fa-star{% if hotel.avr_review < 3.5%}-o{% elif hotel.avr_review >= 3.5 and hotel.avr_review < 4%}-half-o{%endif%}"
-  									aria-hidden="true"></i>
-  								<i class="fa fa-star{% if hotel.avr_review < 4.5%}-o{% elif hotel.avr_review >= 4.5 and hotel.avr_review < 5%}-half-o{%endif%}"
-  									aria-hidden="true"></i>
-  							</span>({{hotel.count_review}} reviews)
-  						</div>
+  						<div class="d-flex">
+                                    <div class="one">
+                                        <h3><a href="{{hotel.get_absolute_url}}">{{hotel}}</a></h3>
+                                        <div class="rating-star">
+                                            <span>
+                                                <i class="fa fa-star{% if hotel.avr_review < 0.5%}-o{% elif hotel.avr_review >= 0.5 and hotel.avr_review < 1%}-half-o{%endif%}"
+                                                    aria-hidden="true"></i>
+                                                <i class="fa fa-star{% if hotel.avr_review < 1.5%}-o{% elif hotel.avr_review >= 1.5 and hotel.avr_review < 2%}-half-o{%endif%}"
+                                                    aria-hidden="true"></i>
+                                                <i class="fa fa-star{% if hotel.avr_review < 2.5%}-o{% elif hotel.avr_review >= 2.5 and hotel.avr_review < 3%}-half-o{%endif%}"
+                                                    aria-hidden="true"></i>
+                                                <i class="fa fa-star{% if hotel.avr_review < 3.5%}-o{% elif hotel.avr_review >= 3.5 and hotel.avr_review < 4%}-half-o{%endif%}"
+                                                    aria-hidden="true"></i>
+                                                <i class="fa fa-star{% if hotel.avr_review < 4.5%}-o{% elif hotel.avr_review >= 4.5 and hotel.avr_review < 5%}-half-o{%endif%}"
+                                                    aria-hidden="true"></i>
+                                            </span>({{hotel.count_review}} rate)
+                                        </div>
+                                    </div>
+                                    <div class="two">
+                                        <span
+                                            class="price per-price">${{hotel.price}}<br><small>/night</small></span>
+                                    </div>
+                                </div>
   						<p>Far far away, behind the word mountains, far from the countries</p>
   						<hr>
   						<p class="bottom-area d-flex">
@@ -249,20 +257,27 @@
   						</div>
   					</a>
   					<div class="text p-3">
-  						<h3><a href="{{resturant.get_absolute_url}}">{{resturant}}</a></h3>
-  						<div class="rating-star">
-  							<span>
-  								<i class="fa fa-star{% if resturant.avr_review < 0.5%}-o{% elif resturant.avr_review >= 0.5 and resturant.avr_review < 1%}-half-o{%endif%}"
-  									aria-hidden="true"></i>
-  								<i class="fa fa-star{% if resturant.avr_review < 1.5%}-o{% elif resturant.avr_review >= 1.5 and resturant.avr_review < 2%}-half-o{%endif%}"
-  									aria-hidden="true"></i>
-  								<i class="fa fa-star{% if resturant.avr_review < 2.5%}-o{% elif resturant.avr_review >= 2.5 and resturant.avr_review < 3%}-half-o{%endif%}"
-  									aria-hidden="true"></i>
-  								<i class="fa fa-star{% if resturant.avr_review < 3.5%}-o{% elif resturant.avr_review >= 3.5 and resturant.avr_review < 4%}-half-o{%endif%}"
-  									aria-hidden="true"></i>
-  								<i class="fa fa-star{% if resturant.avr_review < 4.5%}-o{% elif resturant.avr_review >= 4.5 and resturant.avr_review < 5%}-half-o{%endif%}"
-  									aria-hidden="true"></i>
-  							</span>({{resturant.count_review}} reviews)
+  						<div class="d-flex">
+  							<div class="one">
+  								<h3><a href="{{resturant.get_absolute_url}}">{{resturant}}</a></h3>
+  								<div class="rating-star">
+  									<span>
+  										<i class="fa fa-star{% if resturant.avr_review < 0.5%}-o{% elif resturant.avr_review >= 0.5 and resturant.avr_review < 1%}-half-o{%endif%}"
+  											aria-hidden="true"></i>
+  										<i class="fa fa-star{% if resturant.avr_review < 1.5%}-o{% elif resturant.avr_review >= 1.5 and resturant.avr_review < 2%}-half-o{%endif%}"
+  											aria-hidden="true"></i>
+  										<i class="fa fa-star{% if resturant.avr_review < 2.5%}-o{% elif resturant.avr_review >= 2.5 and resturant.avr_review < 3%}-half-o{%endif%}"
+  											aria-hidden="true"></i>
+  										<i class="fa fa-star{% if resturant.avr_review < 3.5%}-o{% elif resturant.avr_review >= 3.5 and resturant.avr_review < 4%}-half-o{%endif%}"
+  											aria-hidden="true"></i>
+  										<i class="fa fa-star{% if resturant.avr_review < 4.5%}-o{% elif resturant.avr_review >= 4.5 and resturant.avr_review < 5%}-half-o{%endif%}"
+  											aria-hidden="true"></i>
+  									</span>({{resturant.count_review}} rate)
+  								</div>
+  							</div>
+  							<div class="two">
+  								<span class="price per-price">${{resturant.price}}<br><small>/night</small></span>
+  							</div>
   						</div>
   						<p>Far far away, behind the word mountains, far from the countries</p>
   						<hr>
