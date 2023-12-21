@@ -8,7 +8,7 @@ from rest_framework.permissions import IsAuthenticated
 from django.shortcuts import get_list_or_404, get_object_or_404
 
 @api_view(['GET'])
-# @permission_classes([IsAuthenticated])
+@permission_classes([IsAuthenticated])
 def post_list_api(request):
     all_posts = Post.objects.all()
     # all_posts = get_list_or_404(Post)
@@ -16,7 +16,7 @@ def post_list_api(request):
     return Response({'Success':True , 'Post List' : data})
 
 @api_view(['GET'])
-# @permission_classes([IsAuthenticated])
+@permission_classes([IsAuthenticated])
 def post_detail(request,id):
     # post = Post.objects.get(id=id)
     post = get_object_or_404(Post , id=id)
