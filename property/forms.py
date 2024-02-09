@@ -1,6 +1,6 @@
 from django import forms
 from django.forms.models import inlineformset_factory
-from .models import PropertyImages , Property
+from .models import PropertyImages , Property , Category
 
 from .models import PropertyBook , PropertyReview
 
@@ -16,6 +16,8 @@ class PropertyReviewForm(forms.ModelForm):
     class Meta:
         model = PropertyReview
         fields = ['subject','review','rating']
+
+
 
 class PropertyImageForm(forms.ModelForm):
     class Meta:
