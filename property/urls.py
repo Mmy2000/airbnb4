@@ -8,7 +8,6 @@ urlpatterns = [
     path('',PropertyList.as_view(),name='property_list'),
     path('<slug:slug>',PropertyDetail.as_view(),name='property_detail'),
     path( 'new/',AddListing.as_view() , name='property_new' ),
-    path( 'new/edit',EditListing.as_view() , name='property_edit' ),
 
     ## api urls ##
     path('api/list' , api_view.PropertyListApi.as_view(), name='property_api_list'),
