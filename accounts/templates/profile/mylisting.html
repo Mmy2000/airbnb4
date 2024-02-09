@@ -62,6 +62,7 @@
                                 <p class="bottom-area d-flex">
                                     <span><i class="icon-map-o"></i>{{property.place}}</span>
                                     <span class="ml-auto"><a href="{{property.get_absolute_url}}">View {{property.category}}</a></span>
+                                    <span class="ml-auto"><a href="{% url 'property:property_edit' %}">edit {{property.category}}</a></span>
                                 </p>
                             </div>
                         </div>

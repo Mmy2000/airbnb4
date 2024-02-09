@@ -78,3 +78,34 @@ class AddListing(CreateView):
 
             return redirect(reverse('property:property_list'))
 
+class EditListing(CreateView):
+    model = Property
+    form_class = PropertyForm
+
+    def get(self , request , *args , **kwargs):
+        self.object = None
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
+        image_formset = PropertyImageFormset
+        return self.render_to_response(self.get_context_data(
+            form = form , 
+            image_formset = image_formset ,
+        ))
+    
+    def post(self, request, *args, **kwargs):
+        property=self.get_object().id
+        form = self.get_form(instance=property)
+        image_formsets = PropertyImageFormset(self.request.POST , self.request.FILES , instance=property)
+        if form.is_valid() and image_formsets.is_valid():
+            myform = form.save(commit=False)
+            myform.owner = request.user
+            myform.save()
+            room = Property.objects.get(id=myform.id)
+            for form in image_formsets:
+                myform2 = form.save(commit = False)
+                myform2.property = room
+                myform2.save()
+
+            ### send gmail message
+
+            return redirect(reverse('property:property_list'))
