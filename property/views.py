@@ -1,6 +1,6 @@
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic import ListView , DetailView , CreateView
-from .models import Property
+from .models import Property , Category ,Place
 from django.views.generic.edit import FormMixin
 from .forms import PropertyBookForm , PropertyImageFormset , PropertyForm
 from . filter import PropertyFilter
@@ -50,31 +50,54 @@ class AddListing(CreateView):
     model = Property
     form_class = PropertyForm
 
-
-    def get(self , request , *args , **kwargs):
+    def get(self, request, *args, **kwargs):
         self.object = None
         form_class = self.get_form_class()
         form = self.get_form(form_class)
-        image_formset = PropertyImageFormset
+        image_formset = PropertyImageFormset()
         return self.render_to_response(self.get_context_data(
-            form = form , 
-            image_formset = image_formset ,
+            form=form,
+            image_formset=image_formset,
         ))
 
     def post(self, request, *args, **kwargs):
         form = self.get_form()
-        image_formsets = PropertyImageFormset(self.request.POST , self.request.FILES)
-        if form.is_valid() and image_formsets.is_valid():
+        image_formset = PropertyImageFormset(self.request.POST, self.request.FILES)
+        
+        if form.is_valid() and image_formset.is_valid():
             myform = form.save(commit=False)
             myform.owner = request.user
+            
+            new_category = form.cleaned_data.get('new_category')
+            existing_category = form.cleaned_data.get('existing_category')
+            new_place = form.cleaned_data.get('new_place')
+            existing_place = form.cleaned_data.get('existing_place')
+            
+            if new_category:
+                category_instance, created = Category.objects.get_or_create(name=new_category)
+                myform.category = category_instance
+            else:
+                myform.category = existing_category
+            
+            if new_place:
+                place_instance, created = Place.objects.get_or_create(name=new_place)
+                myform.place = place_instance
+            else:
+                myform.place = existing_place
+            
             myform.save()
-            room = Property.objects.get(id=myform.id)
-            for form in image_formsets:
-                myform2 = form.save(commit = False)
-                myform2.property = room
+            
+            for image_form in image_formset:
+                myform2 = image_form.save(commit=False)
+                myform2.property = myform
                 myform2.save()
-
+                
             ### send gmail message
-
+            
             return redirect(reverse('property:property_list'))
+        else:
+            return self.render_to_response(self.get_context_data(
+                form=form,
+                image_formset=image_formset,
+            ))
 
